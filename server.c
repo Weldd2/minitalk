@@ -6,7 +6,7 @@
 /*   By: amura <amura@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 14:55:12 by amura             #+#    #+#             */
-/*   Updated: 2023/12/17 15:17:25 by amura            ###   ########.fr       */
+/*   Updated: 2023/12/17 15:29:20 by amura            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	signal_handler(int signum)
 
 	if (signum == SIGUSR1)
 		morse_char = '.';
-	else
+	else if (signum == SIGUSR2)
 		morse_char = '-';
 	write(1, &morse_char, 1);
 }
