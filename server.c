@@ -6,14 +6,11 @@
 /*   By: amura <amura@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 14:55:12 by amura             #+#    #+#             */
-/*   Updated: 2023/12/17 15:00:29 by amura            ###   ########.fr       */
+/*   Updated: 2023/12/17 15:17:25 by amura            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <unistd.h>
+#include "minitalk.h"
 
 void	signal_handler(int signum)
 {
@@ -30,7 +27,7 @@ int	main(void)
 {
 	struct sigaction	sa;
 
-	printf("PID: %d\n", getpid());
+	ft_printf("PID: %d\n", getpid());
 	sa.sa_handler = signal_handler;
 	sa.sa_flags = SA_RESTART;
 	sigaction(SIGUSR1, &sa, NULL);

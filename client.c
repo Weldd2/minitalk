@@ -6,14 +6,35 @@
 /*   By: amura <amura@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 14:55:17 by amura             #+#    #+#             */
-/*   Updated: 2023/12/17 14:58:19 by amura            ###   ########.fr       */
+/*   Updated: 2023/12/17 15:22:29 by amura            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <unistd.h>
+#include "minitalk.h"
+
+int	ft_atoi(const char *nptr)
+{
+	int		signe;
+	int		total;
+
+	signe = 1;
+	total = 0;
+	while ((*nptr >= 9 && *nptr <= 13) || *nptr == ' ')
+		nptr++;
+	if (*nptr == '-' || *nptr == '+')
+	{
+		if (*nptr == '-')
+			signe = -signe;
+		nptr++;
+	}
+	while (*nptr <= '9' && *nptr >= '0')
+	{
+		total = total * 10;
+		total += (*nptr - '0');
+		nptr++;
+	}
+	return (total * signe);
+}
 
 void	send_morse(pid_t pid, char *morse_code)
 {
@@ -42,10 +63,10 @@ int	main(int argc, char *argv[])
 
 	if (argc < 3)
 	{
-		fprintf(stderr, "Usage: %s <pid> <morse_code>\n", argv[0]);
+		ft_printf("Usage: %s <pid> <morse_code>\n", argv[0]);
 		return (1);
 	}
-	pid = atoi(argv[1]);
+	pid = ft_atoi(argv[1]);
 	i = 0;
 	while (i < argc - 2)
 	{
