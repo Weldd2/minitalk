@@ -1,3 +1,5 @@
 .vscode
 client
 server
+server.dSYM
+client.dSYM
