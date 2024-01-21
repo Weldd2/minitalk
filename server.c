@@ -6,19 +6,11 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 14:55:12 by amura             #+#    #+#             */
-/*   Updated: 2024/01/21 00:34:36 by antoinemura      ###   ########.fr       */
+/*   Updated: 2024/01/21 17:05:53 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-
-typedef struct s_stream {
-	int		pid;
-	int		bit_index;
-	int		char_index;
-	char	*received_bit;
-	char	*message;
-} t_stream;
 
 t_stream	*find_stream_in_list(t_list *stream, int pid)
 {
@@ -42,10 +34,7 @@ void	add_stream_to_list(t_stream **stream, t_list **stream_list, int pid)
 	(*stream)->message = malloc(MAX_MESSAGE_LENGTH * sizeof(char));
 	if (!(*stream)->message)
 		ft_printf("erreur");
-	(*stream)->received_bit = malloc(sizeof(char) * 8);
 	(*stream)->received_bit[8] = '\0';
-	if (!(*stream)->received_bit)
-		ft_printf("erreur");
 	(*stream)->pid = pid;
 	(*stream)->bit_index = 0;
 	(*stream)->char_index = 0;
@@ -56,7 +45,7 @@ void	add_stream_to_list(t_stream **stream, t_list **stream_list, int pid)
 void	free_stream(void *stream)
 {
 	free(((t_stream *)stream)->message);
-	free(((t_stream *)stream)->received_bit);
+	free(stream);
 }
 
 void remove_stream_from_list(t_list **stream_list, int pid, void (*free_func)(void *))

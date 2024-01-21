@@ -4,3 +4,4 @@ server
 server.dSYM
 client.dSYM
 *.o
+*.a
