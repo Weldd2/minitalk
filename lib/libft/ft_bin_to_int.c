@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 14:22:37 by antoinemura       #+#    #+#             */
-/*   Updated: 2024/01/21 00:33:55 by antoinemura      ###   ########.fr       */
+/*   Updated: 2024/01/21 17:19:49 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int	ft_bin_to_int(char *s)
 {
-	int ite = 7;
-	int res = 0;
-	int temp;
+	int	ite;
+	int	res;
+	int	temp;
 
+	ite = 7;
+	res = 0;
 	while (ite >= 0)
 	{
 		temp = *(s + 7 - ite) - '0';

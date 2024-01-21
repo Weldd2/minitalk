@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 17:28:50 by antoinemura       #+#    #+#             */
-/*   Updated: 2024/01/20 18:41:27 by antoinemura      ###   ########.fr       */
+/*   Updated: 2024/01/21 17:23:53 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 unsigned int	default_hash_function(void *key)
 {
-	return (*(int *)key) % INT_MAX;
+	return ((*(int *)key) % INT_MAX);
 }
 
 int	default_key_compare(void *key1, void *key2)
 {
-	int k1; 
-	int k2; 
-	
+	int	k1;
+	int	k2;
+
 	k1 = *(int *)key1;
 	k2 = *(int *)key2;
 	if (k1 == k2)
@@ -31,4 +31,3 @@ int	default_key_compare(void *key1, void *key2)
 	else
 		return (-1);
 }
-

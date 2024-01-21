@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 14:55:17 by amura             #+#    #+#             */
-/*   Updated: 2024/01/21 00:25:36 by antoinemura      ###   ########.fr       */
+/*   Updated: 2024/01/21 17:18:05 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,16 @@ int	*char_to_binary(char c)
 	i = 0;
 	while (i < 8)
 	{
-		b[i] = ((c << i) & 0x80) ? 1 : 0;
+		if ((c << i) & 0x80)
+			b[i] = 1;
+		else
+			b[i] = 0;
 		i++;
 	}
 	return (b);
 }
 
-void	send_char(pid_t pid, int	*bin)
+void	send_char(pid_t pid, int *bin)
 {
 	int	j;
 	int	signal;
@@ -54,7 +57,7 @@ void	send_signals(pid_t pid, char *s)
 	{
 		bin = char_to_binary(s[i]);
 		if (bin == NULL)
-			return;
+			return ;
 		send_char(pid, bin);
 		i++;
 		free(bin);

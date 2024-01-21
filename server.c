@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 14:55:12 by amura             #+#    #+#             */
-/*   Updated: 2024/01/21 17:05:53 by antoinemura      ###   ########.fr       */
+/*   Updated: 2024/01/21 17:30:14 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,18 @@ void	free_stream(void *stream)
 	free(stream);
 }
 
-void remove_stream_from_list(t_list **stream_list, int pid, void (*free_func)(void *))
+void	remove_stream_from_list(t_list **stream_list, int pid,
+								void (*free_func)(void *))
 {
-	t_list *current = *stream_list;
-	t_list *previous = NULL;
+	t_list		*current;
+	t_list		*previous;
+	t_stream	*current_stream;
 
+	current = *stream_list;
+	previous = NULL;
 	while (current != NULL)
 	{
-		t_stream *current_stream = (t_stream *)current->content;
+		current_stream = (t_stream *)current->content;
 		if (current_stream->pid == pid)
 		{
 			if (previous == NULL)
@@ -71,10 +75,10 @@ void remove_stream_from_list(t_list **stream_list, int pid, void (*free_func)(vo
 	}
 }
 
-void	handler(int sig, siginfo_t *info, __attribute__((unused)) void *context)
+void	handler(int sig, siginfo_t *info, __attribute__((unused))void *context)
 {
 	static t_list	*stream_list = NULL;
-	t_stream 		*stream;
+	t_stream		*stream;
 	char			signal;
 
 	if (sig == SIGUSR1)
@@ -104,7 +108,7 @@ void	handler(int sig, siginfo_t *info, __attribute__((unused)) void *context)
 			ft_printf("From %d : %s\n", stream->pid, stream->message);
 			remove_stream_from_list(&stream_list, stream->pid, &free_stream);
 		}
-		else 
+		else
 			stream->char_index++;
 	}
 }
@@ -115,17 +119,15 @@ int main(void)
 
 	sa.sa_sigaction = &handler;
 	sa.sa_flags = SA_SIGINFO;
-	
-	if (sigaction(SIGUSR1, &sa, NULL) == -1 || sigaction(SIGUSR2, &sa, NULL) == -1) {
+	if (sigaction(SIGUSR1, &sa, NULL) == -1 
+		|| sigaction(SIGUSR2, &sa, NULL) == -1)
+	{
 		perror("sigaction");
 		return (1);
 	}
-
 	ft_printf("PID: %d\n", getpid());
-
 	while (1) {
 		pause();
 	}
 	return (0);
 }
-
