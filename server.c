@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 14:55:12 by amura             #+#    #+#             */
-/*   Updated: 2024/01/21 17:30:14 by antoinemura      ###   ########.fr       */
+/*   Updated: 2024/02/10 15:26:22 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	add_stream_to_list(t_stream **stream, t_list **stream_list, int pid)
 	(*stream)->message = malloc(MAX_MESSAGE_LENGTH * sizeof(char));
 	if (!(*stream)->message)
 		ft_printf("erreur");
+	ft_memset((*stream)->message, '\0', MAX_MESSAGE_LENGTH);
 	(*stream)->received_bit[8] = '\0';
 	(*stream)->pid = pid;
 	(*stream)->bit_index = 0;
@@ -87,6 +88,11 @@ void	handler(int sig, siginfo_t *info, __attribute__((unused))void *context)
 		signal = '1';
 	else
 		return ;
+	if (info->si_pid == 0)
+	{
+		ft_printf("PID = 0, signal = %d\n", sig);
+		return ;
+	}
 	stream = find_stream_in_list(stream_list, info->si_pid);
 	if (!stream)
 	{
@@ -100,7 +106,11 @@ void	handler(int sig, siginfo_t *info, __attribute__((unused))void *context)
 	}
 	if (stream->bit_index == 8)
 	{
-		stream->received_bit[stream->bit_index] = '\0';
+		for (int i = 0; i < 90; i++)
+		{
+			stream->received_bit[stream->bit_index] = '\0';
+		}
+		
 		stream->message[stream->char_index] = ft_bin_to_int(stream->received_bit);
 		stream->bit_index = 0;
 		if (stream->message[stream->char_index] == '\0')
