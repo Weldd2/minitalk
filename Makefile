@@ -12,7 +12,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRC_CLIENT = client.c
-SRC_SERVER = server.c
+SRC_SERVER = server.c server_utils.c
 
 LIBS = $(LIBFTPRINTF_A) $(LIBFT_A) $(HASH_TABLE_A)
 

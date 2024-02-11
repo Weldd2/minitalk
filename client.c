@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 14:55:17 by amura             #+#    #+#             */
-/*   Updated: 2024/02/10 15:26:40 by antoinemura      ###   ########.fr       */
+/*   Created: 2024/02/11 01:39:33 by antoinemura       #+#    #+#             */
+/*   Updated: 2024/02/11 01:52:26 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	send_char(pid_t pid, int *bin)
 		if (bin[j])
 			signal = SIGUSR2;
 		kill(pid, signal);
-		usleep(5000);
+		usleep(150);
 		j++;
 	}
 }
