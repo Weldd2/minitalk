@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
+/*   By: amura <amura@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 01:39:33 by antoinemura       #+#    #+#             */
-/*   Updated: 2024/02/11 01:52:26 by antoinemura      ###   ########.fr       */
+/*   Updated: 2024/02/11 03:15:39 by amura            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	send_char(pid_t pid, int *bin)
 		usleep(150);
 		j++;
 	}
+	free(bin);
 }
 
 void	send_signals(pid_t pid, char *s)
@@ -60,9 +61,10 @@ void	send_signals(pid_t pid, char *s)
 			return ;
 		send_char(pid, bin);
 		i++;
-		free(bin);
 	}
 	bin = char_to_binary('\0');
+	if (bin == NULL)
+		return ;
 	send_char(pid, bin);
 }
 
